@@ -1,0 +1,38 @@
+WIP
+
+example usage:
+
+#include <Arduino.h>
+#include <433.h>
+#include <433debug.h>
+
+//! Set the receiver-pin in 433.h ! (must be interrupt-capable)
+
+
+//-----------------------------------------------------------------------------------------------//
+
+void handleTempData()
+{
+  tempData433_t tempdata;
+
+  if (read433(&tempdata))
+  {
+    dbgPrintTempData(&tempdata);
+  }
+}
+
+//-----------------------------------------------------------------------------------------------//
+
+void setup()
+{
+  Serial.begin(115200);
+  delay(20);
+
+  init433();
+  Serial.println("Started");
+}
+
+void loop()
+{
+  handleTempData();
+}
