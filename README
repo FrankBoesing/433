@@ -1,7 +1,8 @@
-WIP
+Receivers Teknihall ( GT_WT-02 ) and Infactory 433MHz weather sensors.
 
-example usage:
 
+Example usage:
+```
 #include <Arduino.h>
 #include <433.h>
 #include <433debug.h>
@@ -36,3 +37,4 @@ void loop()
 {
   handleTempData();
 }
+```
