@@ -2,14 +2,7 @@
 
 static std::list<tempData433_t> rcv433Data;
 
-//TODO: Add digitalReadFast for more boards
-#ifdef ESP8266
-#define GPIO_IN ((volatile uint32_t *)0x60000318)
-#define _digitalReadFast(pin) ((*GPIO_IN & (1 << (pin))))
-#define digitalReadFast(pin) (_digitalReadFast(pin) ? 1 : 0)
-#endif
-
-bool IRAM_ATTR parsePPM(const unsigned len, protocol_ppm_data_t *data, const protocol_ppm_t *protocol)
+bool RAMFUNC parsePPM(const unsigned len, protocol_ppm_data_t *data, const protocol_ppm_t *protocol)
 {
 
   data->data <<= 1;
@@ -32,7 +25,7 @@ bool IRAM_ATTR parsePPM(const unsigned len, protocol_ppm_data_t *data, const pro
   return (data->count == protocol->BITS);
 }
 
-static IRAM_ATTR void isr()
+static RAMFUNC void isr()
 {
   static unsigned lastInt;
   const unsigned long t = micros();
@@ -77,6 +70,6 @@ bool read433(tempData433_t *td)
 
 void init433()
 {
-  pinMode(rcv433_pin, INPUT);
+  pinMode(rcv433_pin, INPUT_PULLDOWN);
   attachInterrupt(rcv433_pin, isr, CHANGE);
 }

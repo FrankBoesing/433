@@ -40,7 +40,7 @@ static const protocol_ppm_t protocol_teknihall = {
 static std::list<bitbuf_t> rcvList_teknihall;
 
 // called from interrupt, processes the "1" Bits only
-void IRAM_ATTR rcv_teknihall(const unsigned len)
+void RAMFUNC rcv_teknihall(const unsigned len)
 {
   static protocol_ppm_data_t data = {0, 0};
 
@@ -62,8 +62,8 @@ void handle_teknihall()
   datanew = rcvList_teknihall.front();
   rcvList_teknihall.pop_front();
 
-  if (datanew == data)
-    return; // ignore same data (sender sends 6 times the same)
+  //if (datanew == data)
+  //  return; // ignore same data (sender sends 6 times the same)
   data = datanew;
   // dbgPrintData(&data);
 

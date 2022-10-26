@@ -28,7 +28,7 @@ static const protocol_ppm_t protocol_infactory = {
 static std::list<bitbuf_t> rcvList_infactory;
 
 // called from interrupt, processes the "1" Bits only
-void IRAM_ATTR rcv_infactory(const unsigned len)
+void RAMFUNC rcv_infactory(const unsigned len)
 {
   static protocol_ppm_data_t data = {0, 0};
 
@@ -88,8 +88,8 @@ void handle_infactory()
   datanew = rcvList_infactory.front();
   rcvList_infactory.pop_front();
 
-  if (datanew == data)
-    return; // ignore same data (sender sends 6 times the same)
+  //if (datanew == data)
+  //  return; // ignore same data (sender sends 6 times the same)
   data = datanew;
   //printData(&data);
 
